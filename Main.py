@@ -9,6 +9,7 @@ pygame.init()
 screen = pygame.display.set_mode((1280, 960))
 map_surface = pygame.Surface((screen.get_size()[0], screen.get_size()[1]), pygame.SRCALPHA)
 empty_surface = pygame.Surface((32, 32), pygame.SRCALPHA)
+empty_surface.fill((0, 204, 102))
 fondo = Fondo(screen)
 mapa = Mapa('res/pixel_adventure_map.json', [screen.get_size()[0], screen.get_size()[1]], map_surface)
 mapa.establecer_capas()
@@ -52,13 +53,9 @@ while 1:
         jugador.controlar_colision_plataforma(r)
         counter += 1
 
-    counter = 0
-    for r in mapa.col_rects_fruits:
-        if jugador.colisiona_fruta(r) is not None:
-            if r == jugador.colisiona_fruta(r):
-                mapa.controlar_desaparicion_frutas(mapa.col_rects_fruits[counter], empty_surface, map_surface)
-                del mapa.col_rects_fruits[counter]
-        counter = counter + 1
+    colision_rect = jugador.colisiona_fruta(mapa.col_rects_fruits)
+    if colision_rect is not None:
+        mapa.controlar_desaparicion_frutas(colision_rect, empty_surface)
 
     if jugador.enSuelo == False and jugador.enPlataforma == False:
         jugador.efecto_gravitatorio(8)
