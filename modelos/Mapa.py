@@ -17,6 +17,8 @@ class Mapa(Modelo):
 		self.nFruit = []
 		self.nSky = []
 
+		self.fruitList = []
+
 		self.patron_h = 80
 		self.patron_v = 60
 
@@ -57,7 +59,7 @@ class Mapa(Modelo):
 				self.col_rects_platform.append(pygame.Rect((16 * axis_y), 16 * axis_x, 28, 24))
 				self.nPlatform.append(self.data_platform['data'][i])
 			if self.data_frutas['data'][i] != 0:
-				self.col_rects_fruits.append(pygame.Rect((16 * axis_y), 16 * axis_x, 16, 16))
+				self.col_rects_fruits.append(pygame.Rect((16 * axis_y), (16 * axis_x) - 16, 16, 16))
 				self.nFruit.append(self.data_frutas['data'][i])
 			if self.data_cielo['data'][i] != 0:
 				self.nSky.append(self.data_cielo['data'][i])
@@ -91,11 +93,12 @@ class Mapa(Modelo):
 			block = Fruta(self.screen, [r.left, r.top])
 			block.obtener_elemento()
 			block.dibujar()
+			self.fruitList.append(block)
 
-
-	def controlar_desaparicion_frutas(self, r, empty_surface, map_surface):
-	    block = PixelVacio(empty_surface, [r.left, r.top])
-	    block.obtener_elemento()
-	    empty_surface.fill((0, 204, 102))
-	    map_surface.blit(empty_surface, [block.x, block.y])
-	    self.dibujar_capa_plataformas()
+	def controlar_desaparicion_frutas(self, r, empty_pixel):
+	    for fruit in self.fruitList:
+	        if (r.top == fruit.y) and (r.left == fruit.x):
+	            fruit.img = empty_pixel
+	            fruit.dibujar()
+	            self.fruitList.remove(fruit)
+	            self.col_rects_fruits.remove(r)

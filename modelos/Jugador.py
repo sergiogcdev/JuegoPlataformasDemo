@@ -59,9 +59,10 @@ class Jugador(Modelo):
 				self.enCaida = False
 				return True
 		return False
-	def colisiona_fruta(self, r):
-		if self.rect.colliderect(r):
-			return r
+	def colisiona_fruta(self, lista_frutas):
+		for f in lista_frutas:
+		    if self.rect.colliderect(f):
+		        return f
 		return None
 	# if(self.y + 32 >= recta_modelo.top and self.rect.colliderect(recta_modelo)):
 	"""
