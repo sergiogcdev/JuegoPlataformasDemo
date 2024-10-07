@@ -94,10 +94,8 @@ class Mapa(Modelo):
 
 
 	def controlar_desaparicion_frutas(self, r, empty_surface, map_surface):
-		self.capa_vacia.append((r.left, r.top))
-		for item in self.capa_vacia:
-			block = PixelVacio(empty_surface, [r.left, r.top])
-			block.obtener_elemento()
-			empty_surface.fill((0, 204, 102))
-			map_surface.blit(empty_surface, [block.x, block.y])
-			self.dibujar_capa_plataformas()
+	    block = PixelVacio(empty_surface, [r.left, r.top])
+	    block.obtener_elemento()
+	    empty_surface.fill((0, 204, 102))
+	    map_surface.blit(empty_surface, [block.x, block.y])
+	    self.dibujar_capa_plataformas()
