@@ -17,10 +17,7 @@ map_surface.fill((0, 204, 102))
 mapa.dibujar_capa_suelo()
 mapa.dibujar_capa_frutas()
 mapa.dibujar_capa_plataformas()
-# fondo.dibujar(fondo.img, [0, 0])
 jugador = Jugador(screen)
-col_points = None
-aux_col_points = None
 
 while 1:
 
