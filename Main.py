@@ -45,13 +45,8 @@ while 1:
     jugador.saltar(-20)
     jugador.actualizarTiempoSalto()
 
-    for r in mapa.col_rects:
-        jugador.controlar_colision_suelo(r)
-
-    counter = 0
-    for r in mapa.col_rects_platform:
-        jugador.controlar_colision_plataforma(r)
-        counter += 1
+    jugador.colisiona_suelo(mapa.col_rects)
+    jugador.colisiona_plataforma(mapa.col_rects_platform)
 
     colision_rect = jugador.colisiona_fruta(mapa.col_rects_fruits)
     if colision_rect is not None:
